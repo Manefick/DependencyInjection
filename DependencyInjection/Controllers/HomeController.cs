@@ -10,7 +10,17 @@ namespace DependencyInjection.Controllers
     public class HomeController : Controller
     {
         private IRepository repository;//где именно при вызове интерфейса создаеться екземпляр класса реализуещего интерфейс?
-        public HomeController(IRepository repo) => repository = repo;//зачем и как оно работает
-        public ViewResult Index() => View(repository.Products);//откуда беруться даніе из интерфейса ??
+        private ProductTotalizer totalizator;// зачем мы создаем екземпляр а не используем тот что передается в конструкторе
+        public HomeController(IRepository repo, ProductTotalizer total)
+        {
+            repository = repo;  //зачем и как оно работает
+            totalizator = total;
+        }
+        //public ViewResult Index() => View(repository.Products);//откуда беруться даніе из интерфейса ??
+        public ViewResult Index()
+        {
+            ViewBag.Total = totalizator.Total;
+            return View(repository.Products);
+        }
     }
 }

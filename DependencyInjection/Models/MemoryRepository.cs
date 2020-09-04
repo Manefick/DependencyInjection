@@ -13,6 +13,12 @@ namespace DependencyInjection.Models
         public MemoryRepository(IModelStorage modelStore)
         {
             storage = modelStore;
+            new List<Product>
+                {
+                    new Product{Name = "Kayak", Price=275M},
+                    new Product{Name = "Lifejusket", Price= 48.95M},
+                    new Product{Name = "Soccer ball", Price= 19.50M}
+                }.ForEach(p => AddProduct(p));
         }
         //public MemoryRepository()
         //{
